@@ -1,25 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+import StudentList from './StudentList';
+import FavoriteStudents from './FavoriteStudents';
+
+// Main App component
+const App = () => {
+  // Initial list of students
+  const [students] = useState(['Alice', 'Bob', 'Charlie', 'David']);
+  // State for favorite students
+  const [favoriteStudents, setFavoriteStudents] = useState([]);
+
+  // Function to add a student to the favorite list
+  const addToFavorites = (student) => {
+    if (!favoriteStudents.includes(student)) {
+      setFavoriteStudents([...favoriteStudents, student]);
+    }
+  };
+  const removeFromFavorites = (student) => {
+    setFavoriteStudents(favoriteStudents.filter(favStudent => favStudent !== student));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+    <Router>
+      <nav className="bg-red-300 p-3 text-2xl">
+        <ul className="flex space-x-4">
+          <li>
+            <Link to="/" className="underline">Students List</Link>
+          </li>
+          <li>
+            <Link to="/favorites" className="underline">Favorite Students</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="p-10">
+              <h1 className="p-3 text-2xl text-center">Students List</h1>
+              <StudentList students={students} addToFavorites={addToFavorites} />
+            </div>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <div className="p-10">
+              <h2 className="p-3 text-2xl text-center">Favorite Students</h2>
+              <FavoriteStudents favoriteStudents={favoriteStudents} removeFromFavorites={removeFromFavorites} />
+            </div>
+          }
+        />
+      </Routes>
+    </Router>
   );
-}
+};
+
+
+
 
 export default App;
+
