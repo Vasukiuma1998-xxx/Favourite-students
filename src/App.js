@@ -11,13 +11,13 @@ const App = () => {
   const [students] = useState(['Alice', 'Bob', 'Charlie', 'David']);
   // State for favorite students
   const [favoriteStudents, setFavoriteStudents] = useState([]);
-
-  // Function to add a student to the favorite list
-  const addToFavorites = (student) => {
+  const handleAddToFavorites = (student) => {
     if (!favoriteStudents.includes(student)) {
       setFavoriteStudents([...favoriteStudents, student]);
     }
   };
+
+ 
   const removeFromFavorites = (student) => {
     setFavoriteStudents(favoriteStudents.filter(favStudent => favStudent !== student));
   };
@@ -42,7 +42,8 @@ const App = () => {
           element={
             <div className="p-10">
               <h1 className="p-3 text-2xl text-center">Students List</h1>
-              <StudentList students={students} addToFavorites={addToFavorites} />
+              <StudentList students={students}  favoriteStudents={favoriteStudents} addToFavorites={handleAddToFavorites}/>
+             
             </div>
           }
         />

@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
 
-const StudentList = ({ students, addToFavorites }) => {
-  // Local state to manage favorite students
-  const [favoriteStudents, setFavoriteStudents] = useState([]);
+
+const StudentList = ({ students, favoriteStudents, addToFavorites }) => {
+
 
   const handleAddToFavorites = (student) => {
     if (!favoriteStudents.includes(student)) {
-      setFavoriteStudents([...favoriteStudents, student]);
+     
       addToFavorites(student);
     }
   };
